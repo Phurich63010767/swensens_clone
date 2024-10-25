@@ -7,6 +7,6 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
     username: 'postgres',
     password: 'phurich5',
     database: 'swensens_clone',
-    autoLoadEntities: true,
-    synchronize: true, // Not recommended for production
-};
+    entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+    synchronize: true, // true สำหรับพัฒนา แต่ควรเป็น false ใน production
+}
