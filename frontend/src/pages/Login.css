@@ -1,19 +1,17 @@
 .login-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
 }
 
 .top-buttons {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px; /* ระยะห่างจากฟอร์ม */
-  padding: 0 10px; /* เพิ่ม padding สำหรับปุ่ม */
+  margin-bottom: 20px; 
+  padding: 0 10px;
 }
 
 .top-buttons .ant-btn-link {
   font-size: 16px;
-  color: #1890ff;
 }
 
 .login-form-container {
@@ -44,4 +42,8 @@
   .login-banner {
     display: none;
   }
+}
+
+.forget-pass {
+  margin-bottom: 20px;
 }

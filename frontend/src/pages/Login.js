@@ -18,10 +18,10 @@ const Login = () => {
           
           {/* Top buttons for navigation, outside of form */}
           <div className="top-buttons">
-            <Button type="link" onClick={() => navigate('/')}>
+            <Button color="default" variant="text" type="link" onClick={() => navigate('/')}>
               กลับ
             </Button>
-            <Button type="link" onClick={() => navigate('/register')}>
+            <Button variant="outlined" color="danger" type="link" onClick={() => navigate('/register')}>
               สร้างบัญชี
             </Button>
           </div>
@@ -45,8 +45,12 @@ const Login = () => {
                 <Input.Password placeholder="รหัสผ่าน" />
               </Form.Item>
 
+              <div className="forget-pass">
+                <a>ลืมรหัสผ่าน?</a>
+              </div>              
+
               <Form.Item>
-                <Button type="primary" htmlType="submit" block>
+                <Button type="primary" danger htmlType="submit" block>
                   เข้าสู่ระบบ
                 </Button>
               </Form.Item>
