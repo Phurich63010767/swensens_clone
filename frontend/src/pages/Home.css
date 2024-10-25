@@ -20,67 +20,6 @@
   border: 1px solid #ccc;
 }
 
-/* สไตล์สำหรับ Header */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: white;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-.sticky-header {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.logo-container {
-  display: flex;
-  align-items: center;
-}
-
-.logo {
-  height: 50px; /* ปรับขนาดตามต้องการ */
-}
-
-.navbar {
-  display: flex;
-}
-
-.nav-list {
-  display: flex;
-  align-items: center;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.nav-item {
-  margin-left: 20px;
-  font-size: 16px;
-  color: #333;
-}
-
-.login-btn {
-  background-color: #d9251d;
-  color: white;
-  padding: 8px 15px;
-  border: none;
-  border-radius: 20px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.login-btn:hover {
-  background-color: #b31d18;
-}
-
 /* Banner ตรงกลาง */
 .promotion-banner {
   display: flex;
