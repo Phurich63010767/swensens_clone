@@ -13,8 +13,10 @@ export class UserService {
   ) {}
 
   async createUser(data: CreateUserDto) {
+    console.log(data);
     const hashedPassword = await bcrypt.hash(data.password, 10);  
     const newUser = this.userRepository.create({ ...data, password: hashedPassword });
+    console.log(newUser);
     return this.userRepository.save(newUser);
   }
 

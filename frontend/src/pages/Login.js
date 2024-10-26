@@ -4,9 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Login.css';
 import { useLoginState } from '../store/LoginState';
+import { useUserState } from '../store/UserState';
 
 const Login = () => {
   const setIsLoggedIn = useLoginState((state) => state.setIsLoggedIn);
+  const setIsAdmin = useUserState((state) => state.setIsAdmin);
   const navigate = useNavigate();
 
   const onFinish = async (values) => {
@@ -14,7 +16,12 @@ const Login = () => {
       const response = await axios.post('http://localhost:3000/user/login', values);
       if (response.status === 201) {
         message.success('เข้าสู่ระบบสำเร็จ');
-        setIsLoggedIn(true); // ตั้งค่าสถานะการเข้าสู่ระบบ
+        setIsLoggedIn(true); 
+        const getByEmail = await axios.get(`http://localhost:3000/user/email/${values.email}`);
+        console.log(getByEmail.data.id);
+        localStorage.setItem('userId', getByEmail.data.id);
+        console.log(getByEmail.data.isadmin);
+        setIsAdmin(getByEmail.data.isadmin);
         navigate('/');
       } else {
         message.error('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');

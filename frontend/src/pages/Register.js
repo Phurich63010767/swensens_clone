@@ -13,6 +13,7 @@ const Register = () => {
       const formattedValues = {
         ...values,
         birthdate: values.birthdate.format('YYYY-MM-DD'),
+        isadmin: false,
       };
       console.log(formattedValues);
 
