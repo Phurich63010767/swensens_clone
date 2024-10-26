@@ -6,5 +6,6 @@ export class CreateUserDto {
     birthdate: Date;
     phone: string;
     gender: string;
+    isadmin: boolean;
   }
   

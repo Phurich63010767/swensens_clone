@@ -25,4 +25,7 @@ export class User {
 
   @Column()
   gender: string;
+
+  @Column()
+  isadmin: boolean;
 }
