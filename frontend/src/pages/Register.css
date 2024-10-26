@@ -49,3 +49,22 @@
     display: none;
   }
 }
+
+.ant-radio-checked .ant-radio-inner {
+  background-color: red !important; 
+  border-color: red !important;
+}
+
+.ant-radio-inner::after {
+  background-color: white;
+}
+
+.ant-radio-inner {
+  width: 16px;
+  height: 16px;
+}
+
+.ant-radio-inner::after {
+  width: 10px;
+  height: 10px;
+}

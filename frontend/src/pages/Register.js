@@ -1,22 +1,39 @@
 import React from 'react';
-import { Form, Input, Button, Row, Col, DatePicker } from 'antd';
+import { Form, Input, Button, Row, Col, DatePicker, Radio, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './Register.css';
 
 const Register = () => {
   const navigate = useNavigate();
 
-  const onFinish = (values) => {
-    console.log('Register Success:', values);
+  const onFinish = async (values) => {
+    console.log(values);
+    try {
+      const formattedValues = {
+        ...values,
+        birthdate: values.birthdate.format('YYYY-MM-DD'),
+      };
+      console.log(formattedValues);
+
+      const response = await axios.post('http://localhost:3000/user/register', formattedValues);
+
+      if (response.status === 201) {
+        message.success('สมัครสมาชิกสำเร็จ!');
+        navigate('/login');
+      } else {
+        message.error('เกิดข้อผิดพลาดในการสมัครสมาชิก');
+      }
+    } catch (error) {
+      message.error('เกิดข้อผิดพลาดในการสมัครสมาชิก');
+      console.error('Registration error:', error);
+    }
   };
 
   return (
     <div className="register-container">
       <Row className="register-row" gutter={100}>
-        {/* Section for the Register Form */}
         <Col span={12} className="register-form-container">
-          
-          {/* Top buttons for navigation, outside of form */}
           <div className="top-buttons">
             <Button color="default" variant="text" type="link" onClick={() => navigate('/')}>
               กลับ
@@ -32,7 +49,7 @@ const Register = () => {
               <Row gutter={16}>
                 <Col span={12}>
                   <Form.Item
-                    name="firstName"
+                    name="name"
                     label="ชื่อ"
                     rules={[{ required: true, message: 'กรุณากรอกชื่อ' }]}
                   >
@@ -41,7 +58,7 @@ const Register = () => {
                 </Col>
                 <Col span={12}>
                   <Form.Item
-                    name="lastName"
+                    name="lastname"
                     label="นามสกุล"
                     rules={[{ required: true, message: 'กรุณากรอกนามสกุล' }]}
                   >
@@ -74,7 +91,7 @@ const Register = () => {
               <Row gutter={16}>
                 <Col span={12}>
                   <Form.Item
-                    name="birthDate"
+                    name="birthdate"
                     label="วันเกิด"
                     rules={[{ required: true, message: 'กรุณาเลือกวันเกิด' }]}
                   >
@@ -83,7 +100,7 @@ const Register = () => {
                 </Col>
                 <Col span={12}>
                   <Form.Item
-                    name="phoneNumber"
+                    name="phone"
                     label="เบอร์โทรศัพท์"
                     rules={[{ required: true, message: 'กรุณากรอกเบอร์โทรศัพท์' }]}
                   >
@@ -91,6 +108,18 @@ const Register = () => {
                   </Form.Item>
                 </Col>
               </Row>
+
+              <Form.Item
+                name="gender"
+                label="เพศ"
+                rules={[{ required: true, message: 'กรุณาเลือกเพศ' }]}
+              >
+                <Radio.Group>
+                  <Radio value="ชาย">ชาย</Radio>
+                  <Radio value="หญิง">หญิง</Radio>
+                  <Radio value="ไม่ระบุ">ไม่ระบุ</Radio>
+                </Radio.Group>
+              </Form.Item>
 
               <Form.Item>
                 <Button type="primary" danger htmlType="submit" block>
@@ -101,7 +130,6 @@ const Register = () => {
           </div>
         </Col>
 
-        {/* Section for the Banner */}
         <Col span={12} className="register-banner">
           <img src="/images/register-banner.webp" alt="Swensen's Banner" className="banner-image" />
         </Col>

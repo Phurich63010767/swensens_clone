@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -12,7 +13,8 @@ export class UserService {
   ) {}
 
   async createUser(data: CreateUserDto) {
-    const newUser = this.userRepository.create(data);
+    const hashedPassword = await bcrypt.hash(data.password, 10);  
+    const newUser = this.userRepository.create({ ...data, password: hashedPassword });
     return this.userRepository.save(newUser);
   }
 
@@ -24,6 +26,23 @@ export class UserService {
     return await this.userRepository.findOneBy({ id });
   }
 
+  async findByEmail(email: string): Promise<User | undefined> {
+    return this.userRepository.findOne({ where: { email } });
+  }
+
+  async validateUser(email: string, password: string): Promise<User | null> {
+    const user = await this.findByEmail(email);
+    console.log('User found:', user);
+    if (user) {
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+      console.log('Password match:', isPasswordValid);
+      if (isPasswordValid) {
+        return user;
+      }
+    }
+    console.log('Validation failed');
+    return null;
+  }
   async deleteUser(id: number): Promise<void> {
     const result = await this.userRepository.delete(id);
     if (result.affected === 0) {
