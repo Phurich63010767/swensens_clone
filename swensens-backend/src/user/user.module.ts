@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
-import { User } from './user.entity'; // แก้ไขเป็น path ของ entity ของคุณ
+import { User } from './user.entity'; 
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User]), // เพิ่ม entity User ใน TypeOrmModule
+    TypeOrmModule.forFeature([User]), 
   ],
   providers: [UserService],
   controllers: [UserController],
