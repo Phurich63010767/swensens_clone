@@ -9,6 +9,7 @@ import { useUserState } from '../store/UserState';
 const Login = () => {
   const setIsLoggedIn = useLoginState((state) => state.setIsLoggedIn);
   const setIsAdmin = useUserState((state) => state.setIsAdmin);
+  const setUserInfo = useUserState((state) => state.setUserInfo);
   const navigate = useNavigate();
 
   const onFinish = async (values) => {
@@ -20,8 +21,12 @@ const Login = () => {
         const getByEmail = await axios.get(`http://localhost:3000/user/email/${values.email}`);
         console.log(getByEmail.data.id);
         localStorage.setItem('userId', getByEmail.data.id);
+
         console.log(getByEmail.data.isadmin);
         setIsAdmin(getByEmail.data.isadmin);
+        console.log(getByEmail.data);
+        setUserInfo(getByEmail.data);
+
         navigate('/');
       } else {
         message.error('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');

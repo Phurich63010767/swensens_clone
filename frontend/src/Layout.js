@@ -3,10 +3,13 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import './Layout.css';
 import { message } from 'antd';
 import { useLoginState } from './store/LoginState';
+import { useUserState } from './store/UserState';
 
 const Layout = ({ children }) => {
   const isLoggedIn = useLoginState((state) => state.isLoggedIn);
   const setIsLoggedIn = useLoginState((state) => state.setIsLoggedIn);
+  const userInfo = useUserState((state) => state.userInfo);
+  const setUserInfo = useUserState((state) => state.setUserInfo);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -20,6 +23,7 @@ const Layout = ({ children }) => {
 
   const handleLogout = () => {
     setIsLoggedIn(false);
+    setUserInfo({});
     message.success('ออกจากระบบสำเร็จ');
     navigate('/');
   };
@@ -36,6 +40,11 @@ const Layout = ({ children }) => {
         </div>
         <nav className="navbar">
           <ul className="nav-list">
+            {isLoggedIn && (
+              <li className="nav-item">
+                <span>{userInfo.name}, {userInfo.lastname}</span> 
+              </li>
+            )}
             <li className="nav-item">
               {isLoggedIn ? (
                 <button className="login-btn" onClick={handleLogout}>
