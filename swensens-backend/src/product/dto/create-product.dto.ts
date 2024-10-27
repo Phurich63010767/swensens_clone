@@ -1,6 +1,7 @@
 export class CreateProductDto {
     price: number;
-    description: string;
+    descriptionTH: string;
+    descriptionEN: string;
     email: string;
     category: string;
     image: Buffer;

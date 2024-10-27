@@ -52,12 +52,13 @@ const AdminPage = () => {
   const onFinish = async (values) => {
     const formData = new FormData();
     formData.append('price', values.price);
-    formData.append('description', values.description);
+    formData.append('descriptionTH', values.descriptionTH);
+    formData.append('descriptionEN', values.descriptionEN);
     formData.append('category', values.category);
     formData.append('image', file);
 
     try {
-      await axios.post('/api/products', formData, {
+      await axios.post('http://localhost:3000/products/create', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -85,9 +86,17 @@ const AdminPage = () => {
         </Form.Item>
 
         <Form.Item
-          name="description"
-          label="คำอธิบาย"
-          rules={[{ required: true, message: 'กรุณากรอกคำอธิบาย' }]}
+          name="descriptionTH"
+          label="คำอธิบายภาษาไทย"
+          rules={[{ required: true, message: 'กรุณากรอกคำอธิบายไทย' }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          name="descriptionEN"
+          label="คำอธิบายภาษาอังกฤษ"
+          rules={[{ required: true, message: 'กรุณากรอกคำอธิบายอังกฤษ' }]}
         >
           <Input />
         </Form.Item>

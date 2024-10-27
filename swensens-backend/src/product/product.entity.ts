@@ -9,7 +9,10 @@ export class Product {
   price: number;
 
   @Column()
-  description: string;
+  descriptionTH: string;
+
+  @Column()
+  descriptionEN: string;
 
   @Column()
   category: string;
