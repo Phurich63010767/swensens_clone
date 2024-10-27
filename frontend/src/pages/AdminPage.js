@@ -9,19 +9,17 @@ import './AdminPage.css';
 const AdminPage = () => {
   const [form] = Form.useForm();
   const [file, setFile] = useState(null);
-  const isAdmin = useUserState((state) => state.isAdmin);
-  const setIsAdmin = useUserState((state) => state.setIsAdmin);
+
+  const userInfo = useUserState((state) => state.userInfo);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     const checkAdminStatus = async () => {
       try {
-        const userId = localStorage.getItem('userId');
-        const response = await axios.get(`http://localhost:3000/user/${userId}`);
-        console.log(response.data.isadmin);
-        console.log(isAdmin);
-        setIsAdmin(response.data.isadmin);
-        if (!response.data.isadmin) {
+        console.log(userInfo);
+        console.log(userInfo.isadmin);
+        if (!userInfo.isadmin) {
           message.error('ไม่มีสิทธิ์เข้าถึง');
           navigate('/');
         }
@@ -33,13 +31,14 @@ const AdminPage = () => {
   }, [navigate]);
 
   useEffect(() => {
-    if (isAdmin) {
-        console.log('yeet');
-      }
-    if (!isAdmin) {
+    if (!userInfo.isadmin) {
       navigate('/');
     }
-  }, [isAdmin, navigate]);
+  }, [userInfo.isadmin, navigate]);
+
+  useEffect(() => {
+    console.log("isAdmin : " + userInfo.isadmin);
+  }, [userInfo.isadmin]);
 
   const handleFileChange = (info) => {
     if (info.file.status === 'done') {
@@ -71,7 +70,7 @@ const AdminPage = () => {
     }
   };
 
-  if (!isAdmin) return null;
+  if (!userInfo.isadmin) return null;
 
   return (
     <div className="admin-page-container">

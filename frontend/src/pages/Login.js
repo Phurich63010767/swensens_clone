@@ -5,34 +5,33 @@ import axios from 'axios';
 import './Login.css';
 import { useLoginState } from '../store/LoginState';
 import { useUserState } from '../store/UserState';
+import { useTranslation } from 'react-i18next';
 
 const Login = () => {
   const setIsLoggedIn = useLoginState((state) => state.setIsLoggedIn);
-  const setIsAdmin = useUserState((state) => state.setIsAdmin);
   const setUserInfo = useUserState((state) => state.setUserInfo);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const onFinish = async (values) => {
     try {
       const response = await axios.post('http://localhost:3000/user/login', values);
       if (response.status === 201) {
-        message.success('เข้าสู่ระบบสำเร็จ');
+        message.success(`${t('loginSuccess')}`);
         setIsLoggedIn(true); 
         const getByEmail = await axios.get(`http://localhost:3000/user/email/${values.email}`);
-        console.log(getByEmail.data.id);
-        localStorage.setItem('userId', getByEmail.data.id);
 
-        console.log(getByEmail.data.isadmin);
-        setIsAdmin(getByEmail.data.isadmin);
+        console.log(getByEmail.data.id);
         console.log(getByEmail.data);
+
         setUserInfo(getByEmail.data);
 
         navigate('/');
       } else {
-        message.error('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
+        message.error(`${t('userPassWorng')}`);
       }
     } catch (error) {
-      message.error('เกิดข้อผิดพลาดในการเข้าสู่ระบบ');
+      message.error(`${t('loginError')}`);
       console.error('Login error:', error);
     }
   };
@@ -43,31 +42,31 @@ const Login = () => {
         <Col span={12} className="login-form-container">
           <div className="top-buttons">
             <Button color="default" variant="text" type="link" onClick={() => navigate('/')}>
-              กลับ
+              {t('back')}
             </Button>
             <Button variant="outlined" color="danger" type="link" onClick={() => navigate('/register')}>
-              สร้างบัญชี
+              {t('signUp')}
             </Button>
           </div>
 
           <div className="login-form">
-            <h2>ยินดีต้อนรับสมาชิก Swensen's เข้าสู่ระบบแล้วเริ่มสั่งไอศกรีมกันเลย!</h2>
+            <h2>{t('loginWelcome')}</h2>
             <Form name="login" onFinish={onFinish} layout="vertical">
-              <Form.Item name="email" label="อีเมล" rules={[{ required: true, message: 'กรุณากรอกอีเมล' }]}>
-                <Input placeholder="อีเมล" />
+              <Form.Item name="email" label={t('email')} rules={[{ required: true, message: `${t('missEmail')}` }]}>
+                <Input placeholder={t('email')} />
               </Form.Item>
 
-              <Form.Item name="password" label="รหัสผ่าน" rules={[{ required: true, message: 'กรุณากรอกรหัสผ่าน' }]}>
-                <Input.Password placeholder="รหัสผ่าน" />
+              <Form.Item name="password" label={t('password')} rules={[{ required: true, message: `${t('missPass')}` }]}>
+                <Input.Password placeholder={t('password')} />
               </Form.Item>
 
               <div className="forget-pass">
-                <a>ลืมรหัสผ่าน?</a>
+                <a>{t('forgotPass')}</a>
               </div>              
 
               <Form.Item>
                 <Button type="primary" danger htmlType="submit" block>
-                  เข้าสู่ระบบ
+                  {t('login')}
                 </Button>
               </Form.Item>
             </Form>
