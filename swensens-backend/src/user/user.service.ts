@@ -45,6 +45,7 @@ export class UserService {
     console.log('Validation failed');
     return null;
   }
+  
   async deleteUser(id: number): Promise<void> {
     const result = await this.userRepository.delete(id);
     if (result.affected === 0) {

@@ -17,8 +17,6 @@ const AdminPage = () => {
   useEffect(() => {
     const checkAdminStatus = async () => {
       try {
-        console.log(userInfo);
-        console.log(userInfo.isadmin);
         if (!userInfo.isadmin) {
           message.error('ไม่มีสิทธิ์เข้าถึง');
           navigate('/');
@@ -28,39 +26,27 @@ const AdminPage = () => {
       }
     };
     checkAdminStatus();
-  }, [navigate]);
-
-  useEffect(() => {
-    if (!userInfo.isadmin) {
-      navigate('/');
-    }
-  }, [userInfo.isadmin, navigate]);
-
-  useEffect(() => {
-    console.log("isAdmin : " + userInfo.isadmin);
-  }, [userInfo.isadmin]);
+  }, [navigate, userInfo.isadmin]);
 
   const handleFileChange = (info) => {
-    if (info.file.status === 'done') {
-      setFile(info.file.originFileObj);
-      message.success(`${info.file.name} uploaded successfully.`);
-    } else if (info.file.status === 'error') {
-      message.error(`${info.file.name} upload failed.`);
-    }
-  };
+    setFile(info.file);
+  };  
 
   const onFinish = async (values) => {
+    console.log(values);
     const formData = new FormData();
     formData.append('price', values.price);
     formData.append('descriptionTH', values.descriptionTH);
     formData.append('descriptionEN', values.descriptionEN);
     formData.append('category', values.category);
-    formData.append('image', file);
-
+    formData.append('file', file);
+  
     try {
       await axios.post('http://localhost:3000/products/create', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
+          'Authorization': `Bearer ${userInfo}`, 
+          'userId': userInfo.id,
         },
       });
       message.success('Product added successfully!');
@@ -112,7 +98,6 @@ const AdminPage = () => {
         <Form.Item
           name="image"
           label="อัพโหลดรูปภาพ"
-          valuePropName="file"
           rules={[{ required: true, message: 'กรุณาอัพโหลดรูปภาพ' }]}
         >
           <Upload
@@ -120,6 +105,7 @@ const AdminPage = () => {
             listType="picture"
             beforeUpload={() => false}
             onChange={handleFileChange}
+            maxCount={1} 
           >
             <Button icon={<UploadOutlined />}>เลือกไฟล์</Button>
           </Upload>

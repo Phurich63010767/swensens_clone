@@ -11,17 +11,19 @@ export class AuthGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    const user = request.user;
+    const userid = request.headers.userid;
+    const user = await this.userService.findOneById(userid);
 
     if (!user) {
+      console.log("ไม่ได้ login");
       throw new UnauthorizedException('คุณต้องเข้าสู่ระบบ');
     }
 
-    const isAdmin = this.reflector.get<boolean>('isAdmin', context.getHandler());
-    if (isAdmin && !user.isadmin) {
+    if (!user.isadmin) {
+      console.log("ไม่เป็น admin");
       throw new UnauthorizedException('คุณต้องมีสิทธิ์ผู้ดูแลระบบ');
     }
-
+    console.log("เป็น admin");
     return true;
   }
 }
