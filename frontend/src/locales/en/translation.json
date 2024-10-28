@@ -34,6 +34,16 @@
     "female": "Female",
     "notSpecified": "Not Specified",
     "createAccount": "Create Account",
-    "deliveryMenu": "Delivery Menu"
+    "deliveryMenu": "Delivery Menu",
+    "category": {
+        "all": "All",
+        "Ice Cream - Cake": "Ice Cream - Cake",
+        "Ice Cream Quart (450g)": "Ice Cream Quart (450g)",
+        "Ice Cream Mini Quart (250g)": "Ice Cream Mini Quart (250g)",
+        "Sundae Set": "Sundae Set",
+        "Ice Cream Scoop": "Ice Cream Scoop",
+        "Small Bites Ice Cream": "Small Bites Ice Cream",
+        "Topping": "Topping"
+    }
 }
   

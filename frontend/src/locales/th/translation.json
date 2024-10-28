@@ -34,6 +34,16 @@
     "female": "หญิง",
     "notSpecified": "ไม่ระบุ",
     "createAccount": "สร้างบัญชี",
-    "deliveryMenu": "เมนูจัดส่ง"
+    "deliveryMenu": "เมนูจัดส่ง",
+    "category": {
+        "all": "ทั้งหมด",
+        "Ice Cream - Cake": "ไอศกรีมเค้ก",
+        "Ice Cream Quart (450g)": "ไอศกรีมควอท (450g)",
+        "Ice Cream Mini Quart (250g)": "ไอศกรีมมินิ ควอท (250g)",
+        "Sundae Set": "ซันเด เซต",
+        "Ice Cream Scoop": "ไอศกรีมสกู๊ป",
+        "Small Bites Ice Cream": "ไอศกรีมสมอลไบทส์",
+        "Topping": "ท๊อปปิ้ง"
+    }
 }
   

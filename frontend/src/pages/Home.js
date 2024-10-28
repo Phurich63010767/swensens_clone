@@ -11,7 +11,16 @@ const Home = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('ทั้งหมด');
 
-  const categories = ['ทั้งหมด', 'Ice Cream - Cake', 'ไอศกรีมควอท', 'ไอศกรีมมินิ', 'ซันเด', 'ไอศกรีมสกู๊ป', 'ไอศกรีมสมาโลนส์', 'ท๊อปปิ้ง'];
+  const categories = [
+    { key: 'all' },
+    { key: 'Ice Cream - Cake' },
+    { key: 'Ice Cream Quart (450g)' },
+    { key: 'Ice Cream Mini Quart (250g)' },
+    { key: 'Sundae Set' },
+    { key: 'Ice Cream Scoop' },
+    { key: 'Small Bites Ice Cream' },
+    { key: 'Topping' }
+  ];
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -31,7 +40,7 @@ const Home = () => {
 
   const filterByCategory = (category) => {
     setSelectedCategory(category);
-    if (category === 'ทั้งหมด') {
+    if (category === 'all') {
       setFilteredProducts(products);
     } else {
       setFilteredProducts(products.filter(product => product.category === category));
@@ -68,16 +77,16 @@ const Home = () => {
 
         <h2 className="promotion-text ">{t('deliveryMenu')}</h2>
         <Space className="category-buttons" size="middle">
-          {categories.map(category => (
+          {categories.map(({ key }) => (
             <Button
-              key={category}
+              key={key}
               type="default"
               variant="outlined"
-              className={selectedCategory === category ? 'active' : 'inactive'}
-              color={selectedCategory === category ? 'danger' : 'default'}
-              onClick={() => filterByCategory(category)}
+              className={selectedCategory === key ? 'active' : 'inactive'}
+              color={selectedCategory === key ? 'danger' : 'default'}
+              onClick={() => filterByCategory(key)}
             >
-              {category}
+              {t(`category.${key}`)}
             </Button>
           ))}
         </Space>
