@@ -2,16 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios'; 
 import { Buffer } from 'buffer';
+import { Button, Space } from 'antd';
 import './Home.css';
 
 const Home = () => {
   const { t, i18n } = useTranslation();
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('ทั้งหมด');
+
+  const categories = ['ทั้งหมด', 'Ice Cream - Cake', 'ไอศกรีมควอท', 'ไอศกรีมมินิ', 'ซันเด', 'ไอศกรีมสกู๊ป', 'ไอศกรีมสมาโลนส์', 'ท๊อปปิ้ง'];
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/products'); // เปลี่ยน URL ตาม backend ของคุณ
+        const response = await axios.get('http://localhost:3000/products'); 
         const productsWithBase64 = response.data.map(product => ({
           ...product,
           image: product.image ? `data:image/jpeg;base64,${Buffer.from(product.image.data).toString('base64')}` : null
@@ -23,6 +28,15 @@ const Home = () => {
     };
     fetchProducts();
   }, []);
+
+  const filterByCategory = (category) => {
+    setSelectedCategory(category);
+    if (category === 'ทั้งหมด') {
+      setFilteredProducts(products);
+    } else {
+      setFilteredProducts(products.filter(product => product.category === category));
+    }
+  };
 
   return (
     <div className="home-container">
@@ -39,7 +53,7 @@ const Home = () => {
       </div>
       
       <section className="promotion-section">
-        <h2>{t('promotion')}</h2>
+        <h2 className="promotion-text ">{t('promotion')}</h2>
         <div className="promotion-items">
           {products
             .filter(product => product.category === 'promotion') 
@@ -52,9 +66,23 @@ const Home = () => {
             ))}
         </div>
 
-        <h2>{t('deliveryMenu')}</h2>
+        <h2 className="promotion-text ">{t('deliveryMenu')}</h2>
+        <Space className="category-buttons" size="middle">
+          {categories.map(category => (
+            <Button
+              key={category}
+              type="default"
+              variant="outlined"
+              className={selectedCategory === category ? 'active' : 'inactive'}
+              color={selectedCategory === category ? 'danger' : 'default'}
+              onClick={() => filterByCategory(category)}
+            >
+              {category}
+            </Button>
+          ))}
+        </Space>
         <div className="promotion-items">
-          {products
+          {filteredProducts
             .filter(product => product.category !== 'promotion') 
             .map(product => (
               <div key={product.id} className="promotion-item">
