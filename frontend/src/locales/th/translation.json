@@ -33,6 +33,7 @@
     "male": "ชาย",
     "female": "หญิง",
     "notSpecified": "ไม่ระบุ",
-    "createAccount": "สร้างบัญชี"
+    "createAccount": "สร้างบัญชี",
+    "deliveryMenu": "เมนูจัดส่ง"
 }
   
