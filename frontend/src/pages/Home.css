@@ -49,10 +49,10 @@
 .promotion-items {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  row-gap: 25px;
+  gap: 25px;
   width: 60%;
   padding-left: 20%;
+  justify-content: flex-start;
 }
 
 .promotion-item {

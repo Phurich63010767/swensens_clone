@@ -36,6 +36,8 @@
     "createAccount": "Create Account",
     "deliveryMenu": "Delivery Menu",
     "viewDetail": "View Detail",
+    "hi": "Hi,",
+    "etc": "Etc",
     "category": {
         "all": "All",
         "Ice Cream - Cake": "Ice Cream - Cake",

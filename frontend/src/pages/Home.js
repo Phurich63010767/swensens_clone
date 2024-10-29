@@ -4,6 +4,8 @@ import axios from 'axios';
 import { Buffer } from 'buffer';
 import { Button, Space, Input } from 'antd';
 import { EnvironmentOutlined } from '@ant-design/icons';
+import { useLoginState } from '../store/LoginState';
+import { useUserState } from '../store/UserState';
 import './Home.css';
 
 const Home = () => {
@@ -11,6 +13,9 @@ const Home = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('all');
+
+  const isLoggedIn = useLoginState((state) => state.isLoggedIn);
+  const userInfo = useUserState((state) => state.userInfo);
 
   const categories = [
     { key: 'all' },
@@ -61,7 +66,9 @@ const Home = () => {
           prefix={<EnvironmentOutlined style={{ color: '#bfbfbf' }} />}
         />
       </div>
-      
+
+      {isLoggedIn ? <h2 className="promotion-text ">{t('hi')} {userInfo.name}</h2> : <></>}
+
       <div className="promotion-banner">
         <img src="/images/banner_sw-banner.webp" alt="Promotion Banner" className="promotion-banner-image" />
       </div>

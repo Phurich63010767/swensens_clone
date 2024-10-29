@@ -39,7 +39,7 @@ const Register = () => {
         <Col span={12} className="register-form-container">
           <div className="top-buttons">
             <Button color="default" variant="text" type="link" onClick={() => navigate('/')}>
-              {t('back')}
+              {`<`} {t('back')}
             </Button>
             <Button variant="outlined" color="danger" type="link" onClick={() => navigate('/login')}>
               {t('login')}

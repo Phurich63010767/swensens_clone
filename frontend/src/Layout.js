@@ -54,6 +54,14 @@ const Layout = ({ children }) => {
     </Menu>
   );
 
+  const logoutMenu = (
+    <Menu>
+      <Menu.Item key="logout" onClick={handleLogout}>
+        {t('logout')}
+      </Menu.Item>
+    </Menu>
+  );
+
   return (
     <div className="layout">
       <header className="header sticky-header">
@@ -62,11 +70,7 @@ const Layout = ({ children }) => {
         </div>
         <nav className="navbar">
           <ul className="nav-list">
-            {isLoggedIn && (
-              <li className="nav-item">
-                <span>{userInfo.name}, {userInfo.lastname}</span> 
-              </li>
-            )}
+
             {userInfo.isadmin && (
               <li className="nav-item">
                 <button className="login-btn" onClick={handleAdminHomeClick}>
@@ -74,22 +78,25 @@ const Layout = ({ children }) => {
                 </button>
               </li>
             )}
+
             <li className="nav-item">
               {isLoggedIn ? (
-                <button className="login-btn" onClick={handleLogout}>
-                  {t('logout')}
-                </button>
+                <Dropdown overlay={logoutMenu} trigger={['click']}>
+                  <button className="login-btn">{t('hi')} {userInfo.name}</button>
+                </Dropdown>
               ) : (
                 <button className="login-btn" onClick={handleLoginClick}>
                   {t('login')} / {t('register')}
                 </button>
               )}
             </li>
+
             <li className="nav-item">
               <Dropdown overlay={languageMenu} trigger={['click']}>
                 <span style={{ cursor: 'pointer' }}>🌐 {t('currentLang')}</span>
               </Dropdown>
             </li>
+            
           </ul>
         </nav>
       </header>

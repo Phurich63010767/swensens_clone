@@ -20,14 +20,16 @@
   .logo-container {
     display: flex;
     align-items: center;
+    padding-left: 15%;
   }
   
   .logo {
-    height: 50px; /* ปรับขนาดตามต้องการ */
+    height: 50px; 
   }
   
   .navbar {
     display: flex;
+    padding-right: 15%;
   }
   
   .nav-list {
@@ -35,7 +37,7 @@
     align-items: center;
     list-style: none;
     margin: 0;
-    padding: 0;
+    padding-right: 0;
   }
   
   .nav-item {

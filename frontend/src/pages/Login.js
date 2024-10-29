@@ -42,7 +42,7 @@ const Login = () => {
         <Col span={12} className="login-form-container">
           <div className="top-buttons">
             <Button color="default" variant="text" type="link" onClick={() => navigate('/')}>
-              {t('back')}
+              {`<`} {t('back')}
             </Button>
             <Button variant="outlined" color="danger" type="link" onClick={() => navigate('/register')}>
               {t('signUp')}
