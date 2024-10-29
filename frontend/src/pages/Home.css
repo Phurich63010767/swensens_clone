@@ -3,21 +3,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px;
-  background-color: #f5f5f5;
-  border-bottom: 1px solid #ddd;
+  margin-bottom: 16px;
+  margin-top: 16px;
+  padding-left: 20%;
+  width: 60%;
 }
 
 .delivery-label {
-  font-size: 16px;
-  margin-right: 10px;
+  font-weight: bold;
+  width: 10%;
 }
 
-.delivery-select {
-  padding: 5px 10px;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+.delivery-input {
+  width: 90%;
+  background-color: #f5f5f5;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  padding: 4px 12px;
 }
 
 /* Banner ตรงกลาง */
@@ -29,9 +31,8 @@
 }
 
 .promotion-banner-image {
-  width: 100%;
-  max-width: 1200px;
-  border-radius: 10px;
+  width: 60%;
+  border-radius: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -42,23 +43,27 @@
 
 .promotion-text {
   text-align: left;
-  padding-left: 18%;
+  padding-left: 20%;
 }
 
 .promotion-items {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
-  justify-content: center;
+  justify-content: space-between;
+  row-gap: 25px;
+  width: 60%;
+  padding-left: 20%;
 }
 
 .promotion-item {
-  width: 200px; 
+  width: 23%; 
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   background-color: #fff;
-  text-align: left; 
+  text-align: left;   
+  overflow: hidden;
+  position: relative;
 }
 
 .promotion-item img {
@@ -68,6 +73,10 @@
   border-top-right-radius: 10px;
 }
 
+.promotion-item .detail-container {
+  height: auto;
+}
+
 .promotion-item p {
   margin: 0;
   padding: 8px;
@@ -75,6 +84,13 @@
   font-weight: bold;
   font-size: 18px;
   padding-top: 0px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; 
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 3.6em; 
+  line-height: 1.8em; 
 }
 
 .promotion-item .price {
@@ -83,11 +99,38 @@
   padding-bottom: 0px;
 }
 
+.promotion-item .detail-button {
+  position: absolute; 
+  bottom: 0; 
+  width: 100%;
+  background-color: rgba(255, 0, 0, 0.9);
+  color: #ffffff;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 10px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.promotion-item:hover .detail-button {
+  opacity: 1;
+}
+
+.promotion-item .detail-button:hover {
+  background-color: rgba(255, 88, 88, 0.9) !important;
+  color: #ffffff !important;
+  border: rgba(255, 88, 88, 0.9);
+}
+
 .category-buttons {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 20px;
-  padding-left: 18%;
+  width: 60%;
+  padding-left: 20%;
+  padding-right: 20%;
 }
 
 .category-buttons button {
@@ -111,4 +154,14 @@
   background-color: #eb3c3c !important; 
   border-color: #eb3c3c !important;
   color: #ffffff !important; 
+}
+
+/* Media query สำหรับหน้าจอที่มีความกว้างเล็กกว่า 1024px */
+@media (max-width: 1024px) {
+  .category-buttons {
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+    justify-content: left;
+  }
 }

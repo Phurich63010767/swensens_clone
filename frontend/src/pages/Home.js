@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios'; 
 import { Buffer } from 'buffer';
-import { Button, Space } from 'antd';
+import { Button, Space, Input } from 'antd';
+import { EnvironmentOutlined } from '@ant-design/icons';
 import './Home.css';
 
 const Home = () => {
   const { t, i18n } = useTranslation();
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('ทั้งหมด');
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
   const categories = [
     { key: 'all' },
@@ -31,6 +32,7 @@ const Home = () => {
           image: product.image ? `data:image/jpeg;base64,${Buffer.from(product.image.data).toString('base64')}` : null
         }));
         setProducts(productsWithBase64);
+        setFilteredProducts(productsWithBase64.filter(product => product.category !== 'promotion'));
       } catch (error) {
         console.error('Error fetching products:', error);
       }
@@ -51,10 +53,13 @@ const Home = () => {
     <div className="home-container">
 
       <div className="delivery-bar">
-        <label htmlFor="delivery-location" className="delivery-label">{t('deliverTo')}:</label>
-        <select id="delivery-location" className="delivery-select">
-          <option value="default">{t('selectLocation')}</option>
-        </select>
+        <label htmlFor="delivery-location" className="delivery-label">{t('deliverTo')} :</label>
+        <Input
+          id="delivery-location"
+          className="delivery-input"
+          placeholder={t('selectLocation')}
+          prefix={<EnvironmentOutlined style={{ color: '#bfbfbf' }} />}
+        />
       </div>
       
       <div className="promotion-banner">
@@ -69,8 +74,11 @@ const Home = () => {
             .map(product => (
               <div key={product.id} className="promotion-item">
                 <img src={product.image} alt={i18n.language === 'th' ? product.descriptionTH : product.descriptionEN} />
-                <p className="price">฿{product.price}</p>
-                <p>{i18n.language === 'th' ? product.descriptionTH : product.descriptionEN}</p>  
+                <div className="detail-container">
+                  <p className="price">฿{product.price}</p>
+                  <p>{i18n.language === 'th' ? product.descriptionTH : product.descriptionEN}</p>  
+                  <Button className="detail-button">{t('viewDetail')}</Button>
+                </div>
               </div>
             ))}
         </div>
@@ -96,8 +104,11 @@ const Home = () => {
             .map(product => (
               <div key={product.id} className="promotion-item">
                 <img src={product.image} alt={i18n.language === 'th' ? product.descriptionTH : product.descriptionEN} />
-                <p className="price">฿{product.price}</p>
-                <p>{i18n.language === 'th' ? product.descriptionTH : product.descriptionEN}</p>  
+                <div className="detail-container">
+                  <p className="price">฿{product.price}</p>
+                  <p>{i18n.language === 'th' ? product.descriptionTH : product.descriptionEN}</p>  
+                  <Button className="detail-button">{t('viewDetail')}</Button>
+                </div>
               </div>
             ))}
         </div>
