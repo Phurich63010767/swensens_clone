@@ -39,7 +39,7 @@ const Login = () => {
   return (
     <div className="login-container">
       <Row className="login-row" gutter={100}>
-        <Col span={12} className="login-form-container">
+        <Col xs={24} sm={24} md={24} lg={24} xl={12} className="login-form-container">
           <div className="top-buttons">
             <Button color="default" variant="text" type="link" onClick={() => navigate('/')}>
               {`<`} {t('back')}
@@ -73,7 +73,7 @@ const Login = () => {
           </div>
         </Col>
 
-        <Col span={12} className="login-banner">
+        <Col xs={0} sm={0} md={0} lg={12} xl={12} className="login-banner">
           <img src="/images/register-banner.webp" alt="Swensen's Banner" className="banner-image" />
         </Col>
       </Row>

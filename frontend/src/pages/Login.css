@@ -44,12 +44,40 @@
   object-fit: cover;
 }
 
-@media (max-width: 768px) {
+.forget-pass {
+  margin-bottom: 20px;
+}
+
+@media (max-width: 1024px) {
+  .login-row {
+    justify-content: center;
+  }
+
+  .login-container {
+    max-width: 100%;
+    align-items: center;
+  }
+
+  .login-form {
+    width: 90%;
+    height: 100%;
+    padding-left: 5%;
+  }
+
+  .top-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    padding-left: 5%;
+    margin-bottom: 20px; 
+  }
+
+  .login-form-container {
+    width: 90%;
+    height: 100%;
+  }
+  
   .login-banner {
     display: none;
   }
-}
-
-.forget-pass {
-  margin-bottom: 20px;
 }

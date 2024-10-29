@@ -13,11 +13,11 @@ const AdminPage = () => {
   const [form] = Form.useForm();
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState('');
-
+  const [products, setProducts] = useState([]);
   const userInfo = useUserState((state) => state.userInfo);
   const { Option } = Select;
 
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const navigate = useNavigate();
 
@@ -33,11 +33,21 @@ const AdminPage = () => {
       }
     };
     checkAdminStatus();
+    fetchProducts();
   }, [navigate, userInfo.isadmin]);
 
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/products'); 
+      setProducts(response.data);
+    } catch (error) {
+      message.error('ไม่สามารถดึงข้อมูลสินค้าได้');
+    }
+  };
+
   const handleFileChange = (info) => {
+    setFileName(info.file.name);
     setFile(info.file);
-    setFileName(info.file.name)
   };  
 
   const onFinish = async (values) => {
@@ -65,12 +75,26 @@ const AdminPage = () => {
     }
   };
 
+  const deleteProduct = async (productId) => {
+    try {
+      await axios.delete(`http://localhost:3000/products/${productId}`, {
+        headers: {
+          'Authorization': `Bearer ${userInfo}`,
+        },
+      });
+      message.success('ลบสินค้าสำเร็จ!');
+      fetchProducts(); 
+    } catch (error) {
+      message.error('ไม่สามารถลบสินค้าได้');
+    }
+  };
+
   if (!userInfo.isadmin) return null;
 
   return (
     <div className="admin-page-container">
+      <Form form={form} onFinish={onFinish} layout="vertical" className="add-product">
       <h2>เพิ่มสินค้าใหม่</h2>
-      <Form form={form} onFinish={onFinish} layout="vertical">
         <Form.Item
           name="price"
           label="ราคา"
@@ -127,7 +151,7 @@ const AdminPage = () => {
           >
             <Button icon={<UploadOutlined />}>เลือกไฟล์</Button>
           </Upload>
-          {fileName && <p>Uploaded: {fileName}</p>} 
+          {fileName !== '' ? <p>Uploaded: {fileName}</p> : <></>}
         </Form.Item>
 
         <Form.Item>
@@ -136,6 +160,18 @@ const AdminPage = () => {
           </Button>
         </Form.Item>
       </Form>
+
+      <div className="delete-product">
+        <h2>ลบสินค้า</h2>
+        {products.map((product) => (
+          <div key={product.id} className="product-item">
+            <p>{i18n.language === 'th' ? product.descriptionTH : product.descriptionEN} - {product.price} THB</p>
+            <Button type="primary" danger onClick={() => deleteProduct(product.id)}>
+              ลบสินค้า
+            </Button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

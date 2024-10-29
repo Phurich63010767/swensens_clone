@@ -80,4 +80,36 @@
     flex-direction: column;
     min-height: 100vh; 
   }
+
+  @media (max-width: 1024px) {
+    .header {
+      width: 100%;
+      padding-left: 0;
+      padding-right: 0;
+      justify-content: left;
+    }
+
+    .sticky-header {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      justify-content: space-between;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      padding-left: 5%;
+    }
+
+    .logo {
+      max-width: 100%;
+    }
+
+    .navbar {
+      display: flex;
+      padding-right: 5%;
+    }
+  }
   

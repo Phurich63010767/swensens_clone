@@ -156,12 +156,44 @@
   color: #ffffff !important; 
 }
 
-/* Media query สำหรับหน้าจอที่มีความกว้างเล็กกว่า 1024px */
 @media (max-width: 1024px) {
+
+  .delivery-bar {
+    padding-left: 5%;
+    width: 90%;
+  }
+  
+  .promotion-text {
+    padding-left: 5%;
+  }
+
+  .promotion-banner-image {
+    width: 90%;
+  }
+  
+  .promotion-items {
+    width: 90%;
+    padding-left: 5%;
+  }
+
+  .promotion-item {
+    width: 45%; 
+  }
+
+  .promotion-item p {
+    font-weight: bold;
+    font-size: 10px;
+    max-height: 3.6em; 
+    line-height: 1.8em; 
+  }
+  
+
   .category-buttons {
-    width: 100%;
-    padding-left: 0;
-    padding-right: 0;
-    justify-content: left;
+
+    gap: 10px;
+    margin-bottom: 20px;
+    width: 90%;
+    padding-left: 5%;
+    padding-right: 5%;
   }
 }

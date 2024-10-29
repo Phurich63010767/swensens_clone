@@ -36,7 +36,7 @@ const Register = () => {
   return (
     <div className="register-container">
       <Row className="register-row" gutter={100}>
-        <Col span={12} className="register-form-container">
+        <Col xs={24} sm={24} md={24} lg={24} xl={12} className="register-form-container">
           <div className="top-buttons">
             <Button color="default" variant="text" type="link" onClick={() => navigate('/')}>
               {`<`} {t('back')}
@@ -133,7 +133,7 @@ const Register = () => {
           </div>
         </Col>
 
-        <Col span={12} className="register-banner">
+        <Col xs={24} sm={24} md={24} lg={24} xl={12} className="register-banner">
           <img src="/images/register-banner.webp" alt="Swensen's Banner" className="banner-image" />
         </Col>
       </Row>
