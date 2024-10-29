@@ -70,6 +70,7 @@ const AdminPage = () => {
       message.success('Product added successfully!');
       form.resetFields();
       setFile(null);
+      setFileName('');
     } catch (error) {
       message.error('Failed to add product.');
     }
